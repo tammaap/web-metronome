@@ -8,6 +8,7 @@
 body {
   font-family: 'Raleway', sans-serif;
   color: #525252;
+  user-select: none;
 }
 
 .container {
