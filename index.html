@@ -8,6 +8,32 @@
 </head>
 <body>
 
+  <div class="container">
+    <div class="metronome">
+
+      <div class="bmp-display">
+        <span class="tempo">120</span>
+        <span class="bpm">BPM</span>
+      </div>
+
+      <div class="tempo-text">Allegro</div>
+      <div class="tempo-settings">
+        <div class="adjust-tempo decrease-tempo">-</div>
+        <input type="range" min="20" max="280" step="1" class="slider">
+        <div class="adjust-tempo icrease-tempo">+</div>
+      </div>
+
+      <div class="start-stop">START</div>
+      <div class="measures">
+        <div class="subtract-beats stepper">-</div>
+        <div class="measure-count">4</div>
+        <div class="add-beats stepper">-</div>
+      </div>
+
+    </div>
+
+  </div>
+
   <script src="js/app.js"></script>
 </body>
 </html>
