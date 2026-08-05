@@ -45,12 +45,14 @@ subtractBeats.addEventListener('click', () => {
   if (beatsPerMeasure <= 2) { return };
   beatsPerMeasure--;
   measureCount.textContent = beatsPerMeasure;
+  count = 0;
 });
 
 addBeats.addEventListener('click', () => {
   if (beatsPerMeasure >= 12) { return };
   beatsPerMeasure++;
   measureCount.textContent = beatsPerMeasure;
+  count = 0;
 });
 
 startStopBtn.addEventListener('click', () => {
@@ -70,6 +72,7 @@ startStopBtn.addEventListener('click', () => {
 function updateMetronome() {
   tempoDisplay.textContent = bpm;
   tempoSlider.value = bpm;
+  metronome.timeInterval = 60000 / bpm;
 
   // Add tempo indicators
   if (bpm <= 30) { tempoTextString = "Lento" };
