@@ -99,13 +99,15 @@ function playClick() {
     count = 0
   }
   if (count === 0) {
-    click1.play();
     click1.currentTime = 0;
+    click1.play();
   } else {
-    click2.play();
     click2.currentTime = 0;
+    click2.play();
   }
   count++;
 }
 
 const metronome = new Timer(playClick, 60000 / bpm, { immediate: true });
+
+updateMetronome();
