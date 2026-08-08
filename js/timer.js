@@ -1,39 +1,58 @@
-function Timer(callback, timeInterval, options) {
-    this.timeInterval = timeInterval;
+function Timer(callback, options = {}) {
+  this.callback = callback;
 
-    this.start = () => {
-      this.expected = Date.now() + this.timeInterval;
-      this.theTimeout = null;
+  this.lookahead = options.lookahead ?? 25;
 
-      if (options.immediate) {
-        callback();
-      }
+  this.scheduleAheadTime = options.scheduleAheadTime ?? 0.1;
 
-      this.timeout = setTimeout(this.round, this.timeInterval);
-      console.log('Timer Started');
+  this.audioContext = options.audioContext;
+
+  this.isRunning = false;
+  this.nextNoteTime = 0;
+  this.timeout = null;
+
+  this.start = () => {
+    if (this.isRunning) {
+      return;
     }
 
-    this.stop = () => {
+    this.isRunning = true;
 
+    this.nextNoteTime = this.audioContext.currentTime + 0.05;
+
+    this.scheduler();
+
+    console.log('Timer Started');
+  };
+
+  this.stop = () => {
+    this.isRunning = false;
+
+    if (this.timeout !== null) {
       clearTimeout(this.timeout);
-      console.log('Timer Stopped');
+      this.timeout = null;
     }
 
-    this.round = () => {
-      console.log('timeout', this.timeout);
-      let drift = Date.now() - this.expected;
+    console.log('Timer Stopped');
+  };
 
-      if (drift > this.timeInterval) {
-        if (options.errorCallback) {
-          options.errorCallback();
-        }
-      }
-      callback();
-      this.expected += this.timeInterval;
-      console.log('Drift:', drift);
-      console.log('Next round time interval:', this.timeInterval - drift);
-      this.timeout = setTimeout(this.round, this.timeInterval - drift);
+  this.scheduler = () => {
+    if (!this.isRunning) {
+      return;
     }
-  }
 
-  export default Timer;
+    while (
+      this.nextNoteTime <
+      this.audioContext.currentTime + this.scheduleAheadTime
+    ) {
+      this.callback(this.nextNoteTime);
+
+      // if BPM changes, future notes will automatically use the new tempo
+      this.nextNoteTime += options.getInterval();
+    }
+
+    this.timeout = setTimeout(this.scheduler, this.lookahead);
+  };
+}
+
+export default Timer;
