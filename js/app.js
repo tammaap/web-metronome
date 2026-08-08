@@ -1,5 +1,6 @@
 import Timer from './timer.js';
 
+// DOM ELEMENTS
 
 const tempoDisplay = document.querySelector('.tempo');
 const tempoText = document.querySelector('.tempo-text');
@@ -15,47 +16,68 @@ const addBeats = document.querySelector('.add-beats');
 const measureCount = document.querySelector('.measure-count');
 
 
+// METRONOME STATE
+
 let bpm = 120;
 let beatsPerMeasure = 4;
 let count = 0;
 let isRunning = false;
 
 
+// WEB AUDIO
+
 const audioContext = new AudioContext();
 
 
+// CREATE METRONOME CLICK
+
 function playClick(time) {
 
+  // oscillator to generate tone.
   const oscillator = audioContext.createOscillator();
 
+  // gain to control volume
   const gainNode = audioContext.createGain();
 
 
   if (count === 0) {
 
+    // first beat
     oscillator.frequency.value = 1000;
 
   } else {
 
+    // other beats
     oscillator.frequency.value = 800;
   }
 
 
+  // Connect audio nodes
   oscillator.connect(gainNode);
   gainNode.connect(audioContext.destination);
 
+
+  // Create a very short click envelope
+
+  // start silent
   gainNode.gain.setValueAtTime(0, time);
 
+  // quickly increase volume
   gainNode.gain.linearRampToValueAtTime(1, time + 0.001);
 
+  // quickly decrease volume
   gainNode.gain.exponentialRampToValueAtTime(
     0.001,
     time + 0.05
   );
 
+
+  // Schedule the oscillator
+  // start and stop are scheduled using the Web Audio clock
   oscillator.start(time);
   oscillator.stop(time + 0.05);
 
+  // move to the next beat
   count++;
 
   if (count >= beatsPerMeasure) {
@@ -64,14 +86,19 @@ function playClick(time) {
 }
 
 
+// METRONOME TIMER
+
 const metronome = new Timer(playClick, {
 
   audioContext,
 
+  // JavaScript checks every 25ms
   lookahead: 25,
 
+  // schedule audio 100ms into the future
   scheduleAheadTime: 0.1,
 
+  // return the length of one beat in seconds
   getInterval: () => {
     return 60 / bpm;
   }
@@ -79,12 +106,15 @@ const metronome = new Timer(playClick, {
 });
 
 
+// START / STOP
+
 startStopBtn.addEventListener('click', async () => {
 
   if (!isRunning) {
 
     await audioContext.resume();
 
+    // start from the first beat
     count = 0;
 
     metronome.start();
@@ -101,10 +131,13 @@ startStopBtn.addEventListener('click', async () => {
 
     startStopBtn.textContent = 'START';
 
+    // next time we start, begin at beat 1
     count = 0;
   }
 });
 
+
+// DECREASE BPM
 
 decreaseTempoBtn.addEventListener('click', () => {
 
@@ -118,6 +151,8 @@ decreaseTempoBtn.addEventListener('click', () => {
 });
 
 
+// INCREASE BPM
+
 increaseTempoBtn.addEventListener('click', () => {
 
   if (bpm >= 280) {
@@ -130,6 +165,8 @@ increaseTempoBtn.addEventListener('click', () => {
 });
 
 
+// BPM SLIDER
+
 tempoSlider.addEventListener('input', () => {
 
   bpm = Number(tempoSlider.value);
@@ -137,6 +174,8 @@ tempoSlider.addEventListener('input', () => {
   updateMetronome();
 });
 
+
+// DECREASE BEATS PER MEASURE
 
 subtractBeats.addEventListener('click', () => {
 
@@ -148,9 +187,12 @@ subtractBeats.addEventListener('click', () => {
 
   measureCount.textContent = beatsPerMeasure;
 
+  // start the measure over
   count = 0;
 });
 
+
+// INCREASE BEATS PER MEASURE
 
 addBeats.addEventListener('click', () => {
 
@@ -162,9 +204,12 @@ addBeats.addEventListener('click', () => {
 
   measureCount.textContent = beatsPerMeasure;
 
+  // start the measure over
   count = 0;
 });
 
+
+// UPDATE METRONOME UI
 
 function updateMetronome() {
 
@@ -175,6 +220,8 @@ function updateMetronome() {
   updateTempoText();
 }
 
+
+// UPDATE TEMPO INDICATORS
 
 function updateTempoText() {
 
@@ -193,5 +240,7 @@ function updateTempoText() {
 
   tempoText.textContent = tempoTextString;
 }
+
+// INITIALIZE UI
 
 updateMetronome();
