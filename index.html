@@ -11,25 +11,185 @@
   <div class="container">
     <div class="metronome">
 
-      <div class="bpm-display">
-        <span class="tempo">120</span>
-        <span class="bpm">BPM</span>
+      <!-- HEADER -->
+
+      <div class="header">
+
+        <div class="header-left">
+
+          <span class="system-name">
+            SCORING TEMPO
+          </span>
+
+          <span class="module-code">
+            SC-01
+          </span>
+
+        </div>
+
+        <div class="header-right">
+
+          <span class="status-dot"></span>
+
+          <span>
+            RECORDING
+          </span>
+
+        </div>
+
       </div>
 
-      <div class="tempo-text">Allegro</div>
+
+      <!-- MAIN BPM DISPLAY -->
+
+      <div class="bpm-section">
+
+        <div class="display-label">
+
+          <span class="label-diamond">◆</span>
+          <span class="line"></span>
+          <span class="label-diamond">◆</span>
+
+        </div>
+
+        <div class="bpm-display">
+
+          <span class="tempo">
+            120
+          </span>
+
+          <span class="bpm">
+            BPM
+          </span>
+
+        </div>
+
+
+        <div class="tempo-text">
+          Allegro
+        </div>
+
+      </div>
+
+
+      <!-- TEMPO CONTROL -->
+
       <div class="tempo-settings">
-        <div class="adjust-tempo-btn decrease-tempo">-</div>
-        <input type="range" min="20" max="280" step="1" value="120" class="slider">
-        <div class="adjust-tempo-btn increase-tempo">+</div>
+
+        <div class="adjust-tempo-btn decrease-tempo">
+          −
+        </div>
+
+
+        <input
+          type="range"
+          min="20"
+          max="280"
+          step="1"
+          value="120"
+          class="slider"
+        >
+
+
+        <div class="adjust-tempo-btn increase-tempo">
+          +
+        </div>
+
       </div>
 
-      <div class="start-stop">START</div>
-      <div class="measures">
-        <div class="subtract-beats stepper">-</div>
-        <div class="measure-count">4</div>
-        <div class="add-beats stepper">+</div>
+
+      <!-- BEAT INDICATORS -->
+
+      <div class="beat-indicators">
+
+        <span class="beat-placeholder"></span>
+        <span class="beat-placeholder"></span>
+        <span class="beat-placeholder"></span>
+        <span class="beat-placeholder"></span>
+
       </div>
-      <span class="beats-per-measure-text">Beats per measure</span>
+
+
+      <!-- TRANSPORT -->
+
+      <div class="transport">
+
+        <div class="start-stop">
+          START
+        </div>
+
+      </div>
+
+
+      <!-- MEASURE -->
+
+      <div class="measures">
+
+        <div class="subtract-beats stepper">
+          −
+        </div>
+
+        <div class="measure-display">
+
+          <span class="measure-count">
+            4
+          </span>
+
+          <span class="measure-label">
+            BEATS / BAR
+          </span>
+
+        </div>
+
+        <div class="add-beats stepper">
+          +
+        </div>
+
+      </div>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+
+        <span>
+          SCORING TEMPO MODULE
+        </span>
+
+        <span>
+          REV. 01
+        </span>
+
+      </div>
+
+
+      <!-- ==========================================
+          SILKSCREEN / EASTER EGGS
+      =========================================== -->
+
+      <span class="pcb-mark mark-top-left">
+        01
+      </span>
+
+      <span class="pcb-mark mark-bottom-left">
+        SYNC
+      </span>
+
+
+      <!-- SMALL HIDDEN NOTES -->
+
+      <span class="pcb-note note-lost">
+        IF LOST<br>
+        RETURN TO BAR 001
+      </span>
+
+      <span class="pcb-note note-panic">
+        DO NOT PANIC
+      </span>
+
+      <span class="pcb-note note-click">
+        TRUST THE CLICK
+      </span>
 
     </div>
 

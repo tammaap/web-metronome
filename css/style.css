@@ -1,147 +1,773 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+
+/* ==================================================
+   RESET
+================================================== */
 
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+
+/* ==================================================
+   COLORS
+================================================== */
+
+:root {
+  --background: #101211;
+  --panel: #151716;
+
+  --red: #cd4949;
+
+  --green: #789f7c;
+  --green-bright: #a2c6a5;
+  --green-dark: #48634d;
+
+  --text: #89918c;
+  --text-dark: #505a54;
+
+  --line: #303632;
+  --line-light: #454d48;
+}
+
+
+/* ==================================================
+   BODY
+================================================== */
 
 body {
-  font-family: 'Raleway', sans-serif;
-  color: #525252;
+  font-family: 'IBM Plex Mono', monospace;
+
+  background: var(--background);
+  color: var(--text);
+
   -webkit-user-select: none;
+  user-select: none;
 }
+
+
+/* ==================================================
+   CONTAINER
+================================================== */
 
 .container {
+  width: 100vw;
   height: 100vh;
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  background: var(--background);
 }
+
+
+/* ==================================================
+   METRONOME
+================================================== */
 
 .metronome {
-  width: 300px;
-  height: 250px;
+  position: relative;
+
+  width: min(1100px, 94vw);
+  height: min(700px, 90vh);
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
+  padding: 35px 50px;
+
+  background: var(--panel);
+
+  border: 1px solid #343a36;
 }
 
+
+/* ==================================================
+   CORNER MARKS
+================================================== */
+
+.metronome::before {
+  content: "";
+
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  width: 18px;
+  height: 18px;
+
+  border-top: 1px solid var(--green-dark);
+  border-left: 1px solid var(--green-dark);
+}
+
+.metronome::after {
+  content: "";
+
+  position: absolute;
+
+  right: 14px;
+  bottom: 14px;
+
+  width: 18px;
+  height: 18px;
+
+  border-right: 1px solid var(--green-dark);
+  border-bottom: 1px solid var(--green-dark);
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 42px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.system-name {
+  color: var(--green);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.25em;
+}
+
+.module-code {
+  padding-left: 16px;
+
+  border-left: 1px solid var(--line);
+
+  color: var(--text-dark);
+
+  font-size: 9px;
+
+  letter-spacing: 0.15em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--text-dark);
+
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+}
+
+
+/* ==================================================
+   BPM SECTION
+================================================== */
+
+.bpm-section {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ==================================================
+   BPM DISPLAY LINE
+================================================== */
+
+.display-label {
+  width: 70%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.display-label .line {
+  flex: 1;
+
+  height: 1px;
+
+  background: var(--line);
+}
+
+.label-diamond {
+  color: var(--green-dark);
+
+  font-size: 7px;
+
+  line-height: 1;
+}
+
+
+/* ==================================================
+   BPM DISPLAY
+================================================== */
+
 .bpm-display {
-  width: 100%;
+  display: flex;
+  align-items: baseline;
+
+  color: var(--green);
+
   text-align: center;
-  color: #fa545c;
-  font-weight: bold;
+
+  font-variant-numeric: tabular-nums;
 }
 
 .bpm-display .tempo {
-  font-size: 4em;
+  font-size: clamp(11rem, 24vw, 20rem);
 
+  font-weight: 400;
+
+  line-height: 0.78;
+
+  letter-spacing: -0.09em;
 }
+
+.bpm-display .bpm {
+  margin-left: 25px;
+
+  color: var(--green-dark);
+
+  font-size: 15px;
+  font-weight: 500;
+
+  letter-spacing: 0.18em;
+}
+
+
+/* ==================================================
+   TEMPO NAME
+================================================== */
 
 .tempo-text {
-  font-size: .8em;
+  margin-top: 30px;
+
+  color: var(--green);
+
+  font-size: 12px;
+
+  letter-spacing: 0.45em;
+
   text-transform: uppercase;
-  text-align: center;
 }
+
+
+/* ==================================================
+   TEMPO SETTINGS
+================================================== */
 
 .tempo-settings {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+  gap: 25px;
+
+  margin-bottom: 22px;
 }
 
-.tempo-settings .adjust-tempo-btn {
-  width: 30px;
-  height: 30px;
-  font-size: 40px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  text-align: center;
+
+/* ==================================================
+   PLUS / MINUS
+================================================== */
+
+.adjust-tempo-btn {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line-light);
+
+  border-radius: 0;
+
+  background: #111412;
+
+  color: var(--text);
+
+  font-size: 22px;
+
   cursor: pointer;
 }
 
-.tempo-settings .adjust-tempo-btn:hover {
-  background: #fa545c;
-  color: #fff;
+.adjust-tempo-btn:hover {
+  border-color: var(--green);
+
+  background: #1a211c;
+
+  color: var(--green-bright);
 }
 
-.tempo-settings .decrease-tempo,
-.tempo-settings .increase-tempo {
-  line-height: 25px;
+
+/* ==================================================
+   SLIDER
+================================================== */
+
+input[type="range"] {
+  width: min(650px, 65vw);
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  background: transparent;
+
+  cursor: pointer;
 }
 
-input[type=range] {
-  -webkit-appearance: none;
-  background-color: transparent;
-  width: 70%;
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
-input[type=range]:focus {
+input[type="range"]:focus {
   outline: none;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fa545c;
-  cursor: pointer;
-  margin-top: -8px;
+
+/* Track */
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+
+  background: #454c47;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
+input[type="range"]::-moz-range-track {
   width: 100%;
-  height: 1px;
-  background: #ddd;
+  height: 2px;
+
+  background: #454c47;
+}
+
+
+/* Thumb */
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+
+  width: 16px;
+  height: 16px;
+
+  margin-top: -7px;
+
+  border: 2px solid var(--green);
+
+  border-radius: 50%;
+
+  background: var(--panel);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid var(--green);
+
+  border-radius: 50%;
+
+  background: var(--panel);
+}
+
+
+/* ==================================================
+   BEAT INDICATORS
+================================================== */
+
+.beat-indicators {
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+}
+
+.beat-placeholder {
+  width: 7px;
+  height: 7px;
+
+  border: 1px solid var(--green-dark);
+
+  background: transparent;
+}
+
+
+/* ==================================================
+   TRANSPORT
+================================================== */
+
+.transport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-bottom: 30px;
 }
 
 
 .start-stop {
-  width: 50px;
-  height: 50px;
-  font-size: 0.7em;
-  text-align: center;
-  background: #fa545c;
-  border-radius: 50%;
-  color: #fff;
-  line-height: 50px;
-  margin: 0 auto;
+  width: 120px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line-light);
+
+  border-radius: 0;
+
+  background: #1b1f1c;
+
+  color: var(--text);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
   cursor: pointer;
 }
 
 .start-stop:hover {
-  background: #ff656c;
+  border-color: var(--green);
+
+  color: var(--green-bright);
+
+  background: #202721;
 }
+
+
+/* ==================================================
+   MEASURES
+================================================== */
 
 .measures {
   display: flex;
+  align-items: center;
   justify-content: center;
+
+  gap: 15px;
+
+  margin-bottom: 25px;
 }
 
-.measures .stepper {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  text-align: center;
-  margin: 0 5px;
+.stepper {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line-light);
+
+  border-radius: 0;
+
+  color: var(--text);
+
   cursor: pointer;
 }
 
-.measures .stepper:hover {
-  background: #ff656c;
-  color: #fff;
+.stepper:hover {
+  border-color: var(--green);
+
+  color: var(--green-bright);
+
+  background: #1a211c;
 }
 
-.measures .add-beats {
-  line-height: 20px;
+.measure-display {
+  min-width: 90px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.measure-count {
+  color: var(--green);
+
+  font-size: 21px;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.measure-label {
+  margin-top: 5px;
+
+  color: var(--text-dark);
+
+  font-size: 8px;
+
+  letter-spacing: 0.16em;
 }
 
 
-.beats-per-measure-text {
-  text-align: center;
-  font-size: 0.5em;
+/* ==================================================
+   FOOTER
+================================================== */
+
+.footer {
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid var(--line);
+
+  color: #414a44;
+
+  font-size: 8px;
+
+  letter-spacing: 0.12em;
+}
+
+
+/* ==================================================
+   PCB / SILKSCREEN MARKINGS
+================================================== */
+
+.pcb-mark {
+  position: absolute;
+
+  color: #344238;
+
+  font-size: 7px;
+  font-weight: 400;
+
+  letter-spacing: 0.15em;
+
+  pointer-events: none;
+}
+
+
+/* Existing technical marks */
+
+.mark-top-left {
+  top: 20px;
+  left: 38px;
+}
+
+.mark-bottom-left {
+  bottom: 18px;
+  left: 38px;
+}
+
+.mark-bottom-right {
+  bottom: 18px;
+  right: 38px;
+}
+
+
+/* ==================================================
+   HIDDEN SILKSCREEN NOTES
+================================================== */
+
+.pcb-note {
+  position: absolute;
+
+  color: #344238;
+
+  font-size: 7px;
+  font-weight: 400;
+
+  line-height: 1.5;
+
+  letter-spacing: 0.12em;
+
   text-transform: uppercase;
+
+  pointer-events: none;
+}
+
+
+/* ------------------------------------------
+   DO NOT TOUCH TEMPO
+------------------------------------------ */
+
+.note-tempo {
+  top: 108px;
+  right: 52px;
+}
+
+
+/* ------------------------------------------
+   IF LOST / RETURN TO BAR 001
+------------------------------------------ */
+
+.note-lost {
+  left: 52px;
+  bottom: 72px;
+}
+
+
+/* ------------------------------------------
+   DO NOT PANIC
+------------------------------------------ */
+
+.note-panic {
+  top: 108px;
+  left: 52px;
+}
+
+
+/* ------------------------------------------
+   TRUST THE CLICK
+------------------------------------------ */
+
+.note-click {
+  right: 52px;
+  bottom: 72px;
+}
+
+
+/* ------------------------------------------
+   PICTURE LOCKED
+------------------------------------------ */
+
+.note-picture {
+  left: 50%;
+  bottom: 72px;
+
+  transform: translateX(-50%);
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 700px) {
+
+  .metronome {
+    width: 95vw;
+    height: 92vh;
+
+    padding: 25px 20px;
+  }
+
+
+  .bpm-display .tempo {
+    font-size: clamp(7rem, 28vw, 12rem);
+  }
+
+
+  .bpm-display .bpm {
+    margin-left: 12px;
+
+    font-size: 11px;
+  }
+
+
+  .display-label {
+    width: 90%;
+  }
+
+
+  .transport-line {
+    width: 60px;
+  }
+
+
+  input[type="range"] {
+    width: 55vw;
+  }
+
+
+  .footer {
+    font-size: 7px;
+  }
+
+
+  /* Smaller silkscreen notes */
+
+  .pcb-note {
+    font-size: 6px;
+  }
+
+
+  .note-panic {
+    top: 90px;
+    left: 25px;
+  }
+
+
+  .note-lost {
+    left: 25px;
+    bottom: 65px;
+  }
+
+
+  .note-click {
+    right: 25px;
+    bottom: 65px;
+  }
+
+
+  .note-picture {
+    bottom: 65px;
+  }
+
+
+  .pcb-mark {
+    font-size: 6px;
+  }
+
+
+  .mark-top-left {
+    left: 25px;
+  }
+
+  .mark-top-right {
+    right: 25px;
+  }
+
+  .mark-bottom-left {
+    left: 25px;
+  }
+
+  .mark-bottom-right {
+    right: 25px;
+  }
+
 }
