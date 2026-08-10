@@ -15,6 +15,9 @@ const subtractBeats = document.querySelector('.subtract-beats');
 const addBeats = document.querySelector('.add-beats');
 const measureCount = document.querySelector('.measure-count');
 
+const beatIndicators = document.querySelectorAll('.beat-placeholder');
+
+
 
 // METRONOME STATE
 
@@ -29,9 +32,37 @@ let isRunning = false;
 const audioContext = new AudioContext();
 
 
+
+
 // CREATE METRONOME CLICK
 
+function updateBeatIndicator(beat) {
+
+  beatIndicators.forEach((indicator) => {
+    indicator.classList.remove('active', 'downbeat');
+  });
+
+  const currentIndicator = beatIndicators[beat];
+
+  if (!currentIndicator) {
+    return;
+  }
+
+  if (beat === 0) {
+    currentIndicator.classList.add('downbeat');
+  } else {
+    currentIndicator.classList.add('active');
+  }
+
+  setTimeout(() => {
+    currentIndicator.classList.remove('active', 'downbeat');
+  }, 80);
+}
+
+
 function playClick(time) {
+
+  updateBeatIndicator(count);
 
   // oscillator to generate tone.
   const oscillator = audioContext.createOscillator();
@@ -121,7 +152,7 @@ async function toggleMetronome() {
 
     isRunning = true;
 
-    startStopBtn.textContent = 'STOP';
+    startStopBtn.textContent = '■';
 
   } else {
 
@@ -129,7 +160,7 @@ async function toggleMetronome() {
 
     isRunning = false;
 
-    startStopBtn.textContent = 'START';
+    startStopBtn.textContent = '▶';
 
     // next time we start, begin at beat 1
     count = 0;
