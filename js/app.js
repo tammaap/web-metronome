@@ -108,7 +108,7 @@ const metronome = new Timer(playClick, {
 
 // START / STOP
 
-startStopBtn.addEventListener('click', async () => {
+async function toggleMetronome() {
 
   if (!isRunning) {
 
@@ -134,7 +134,24 @@ startStopBtn.addEventListener('click', async () => {
     // next time we start, begin at beat 1
     count = 0;
   }
+}
+
+
+// BUTTON
+startStopBtn.addEventListener('click', toggleMetronome);
+
+// SPACEBAR
+document.addEventListener('keydown', (event) => {
+
+  if (event.code === 'Space') {
+
+    event.preventDefault();
+
+    toggleMetronome();
+  }
+
 });
+
 
 
 // DECREASE BPM
