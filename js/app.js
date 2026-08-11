@@ -11,18 +11,19 @@ const tempoSlider = document.querySelector('.slider');
 
 const startStopBtn = document.querySelector('.start-stop');
 
-const subtractBeats = document.querySelector('.subtract-beats');
-const addBeats = document.querySelector('.add-beats');
-const measureCount = document.querySelector('.measure-count');
+const timeSignatureSelect = document.querySelector('.time-signature');
 
-const beatIndicators = document.querySelectorAll('.beat-placeholder');
+const beatIndicatorsContainer = document.querySelector('.beat-indicators');
 
 
 
 // METRONOME STATE
 
 let bpm = 120;
-let beatsPerMeasure = 4;
+let timeSignature = {
+  numerator: 4,
+  denominator: 4
+};
 let count = 0;
 let isRunning = false;
 
@@ -38,9 +39,27 @@ const audioContext = new AudioContext();
 
 
 
-// CREATE METRONOME CLICK
+// BEAT INDICATORS
+
+function updateBeatIndicators() {
+
+  beatIndicatorsContainer.innerHTML = '';
+
+  for (let i = 0; i < timeSignature.numerator; i++) {
+
+    const indicator = document.createElement('span');
+
+    indicator.classList.add('beat-placeholder');
+
+    beatIndicatorsContainer.appendChild(indicator);
+  }
+}
+
 
 function updateBeatIndicator(beat) {
+
+  const beatIndicators =
+    beatIndicatorsContainer.querySelectorAll('.beat-placeholder');
 
   beatIndicators.forEach((indicator) => {
     indicator.classList.remove('active', 'downbeat');
@@ -63,6 +82,9 @@ function updateBeatIndicator(beat) {
   }, 80);
 }
 
+
+
+// CREATE METRONOME CLICK
 
 function playClick(time) {
 
@@ -115,7 +137,7 @@ function playClick(time) {
   // move to the next beat
   count++;
 
-  if (count >= beatsPerMeasure) {
+  if (count >= timeSignature.numerator) {
     count = 0;
   }
 }
@@ -218,6 +240,31 @@ function tapTempo() {
 
 
 
+// TIME SIGNATURE
+
+function updateTimeSignature(value) {
+
+  const [numerator, denominator] = value.split('/');
+
+  timeSignature.numerator = Number(numerator);
+  timeSignature.denominator = Number(denominator);
+
+  // Start the measure over
+  count = 0;
+
+  updateBeatIndicators();
+
+}
+
+
+timeSignatureSelect.addEventListener('change', () => {
+
+  updateTimeSignature(timeSignatureSelect.value);
+
+});
+
+
+
 
 // BUTTON
 startStopBtn.addEventListener('click', toggleMetronome);
@@ -293,39 +340,6 @@ tempoSlider.addEventListener('input', () => {
 });
 
 
-// DECREASE BEATS PER MEASURE
-
-subtractBeats.addEventListener('click', () => {
-
-  if (beatsPerMeasure <= 2) {
-    return;
-  }
-
-  beatsPerMeasure--;
-
-  measureCount.textContent = beatsPerMeasure;
-
-  // start the measure over
-  count = 0;
-});
-
-
-// INCREASE BEATS PER MEASURE
-
-addBeats.addEventListener('click', () => {
-
-  if (beatsPerMeasure >= 12) {
-    return;
-  }
-
-  beatsPerMeasure++;
-
-  measureCount.textContent = beatsPerMeasure;
-
-  // start the measure over
-  count = 0;
-});
-
 
 // UPDATE METRONOME UI
 
@@ -362,3 +376,4 @@ function updateTempoText() {
 // INITIALIZE UI
 
 updateMetronome();
+updateBeatIndicators();

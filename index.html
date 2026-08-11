@@ -98,14 +98,7 @@
 
 
 
-      <div class="beat-indicators">
-
-        <span class="beat-placeholder"></span>
-        <span class="beat-placeholder"></span>
-        <span class="beat-placeholder"></span>
-        <span class="beat-placeholder"></span>
-
-      </div>
+      <div class="beat-indicators"></div>
 
 
 
@@ -121,24 +114,23 @@
 
       <div class="measures">
 
-        <div class="subtract-beats stepper">
-          −
-        </div>
-
         <div class="measure-display">
 
-          <span class="measure-count">
-            4
-          </span>
-
           <span class="measure-label">
-            BEATS / BAR
+            TIME SIGNATURE
           </span>
 
-        </div>
+          <select class="time-signature">
+            <option value="2/4">2/4</option>
+            <option value="3/4">3/4</option>
+            <option value="4/4" selected>4/4</option>
+            <option value="5/4">5/4</option>
+            <option value="6/8">6/8</option>
+            <option value="7/8">7/8</option>
+            <option value="9/8">9/8</option>
+            <option value="12/8">12/8</option>
+          </select>
 
-        <div class="add-beats stepper">
-          +
         </div>
 
       </div>
