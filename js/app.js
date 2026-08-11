@@ -27,6 +27,10 @@ let count = 0;
 let isRunning = false;
 
 
+let tapTimes = [];
+const tapTimeout = 2000;
+
+
 // WEB AUDIO
 
 const audioContext = new AudioContext();
@@ -168,6 +172,53 @@ async function toggleMetronome() {
 }
 
 
+
+// TAP TEMPO
+
+function tapTempo() {
+  const now = performance.now();
+
+  // If too much time has passed, empty tapTimes
+  if (
+    tapTimes.length > 0 &&
+    now - tapTimes[tapTimes.length - 1] > tapTimeout
+  ) {
+    tapTimes = [];
+  }
+
+  tapTimes.push(now);
+
+  // At least 2 taps
+  if (tapTimes.length < 2) {
+    return;
+  }
+
+  // Use up to the last 4 intervals
+  const recentTaps = tapTimes.slice(-5);
+
+  let intervals = [];
+
+  for (let i = 1; i < recentTaps.length; i++) {
+    intervals.push(recentTaps[i] - recentTaps[i - 1]);
+  }
+
+
+  const averageInterval =
+    intervals.reduce((sum, interval) => sum + interval, 0) /
+    intervals.length;
+
+  // ms -> BPM
+  const newBpm = Math.round(60000 / averageInterval);
+
+  // respect metronome limits
+  bpm = Math.min(280, Math.max(20, newBpm));
+
+  updateMetronome();
+}
+
+
+
+
 // BUTTON
 startStopBtn.addEventListener('click', toggleMetronome);
 
@@ -179,6 +230,25 @@ document.addEventListener('keydown', (event) => {
     event.preventDefault();
 
     toggleMetronome();
+  }
+
+  if (event.code === 'KeyT') {
+    event.preventDefault();
+    tapTempo();
+  }
+
+  if (event.code === 'ArrowLeft') {
+
+    event.preventDefault();
+
+    decreaseTempoBtn.click();
+  }
+
+  if (event.code === 'ArrowRight') {
+
+    event.preventDefault();
+
+    increaseTempoBtn.click();
   }
 
 });
