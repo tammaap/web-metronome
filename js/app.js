@@ -264,18 +264,44 @@ timeSignatureSelect.addEventListener('change', () => {
 });
 
 
+// TIMESIGNATURE KEYBOARD FUNCTION
+
+function changeTimeSignatureByKeyboard(direction) {
+
+  const options = timeSignatureSelect.options;
+
+  let currentIndex = timeSignatureSelect.selectedIndex;
+
+  currentIndex += direction;
+
+  // Don't go above the first option
+  if (currentIndex < 0) {
+    currentIndex = 0;
+  }
+
+  // Don't go below the last option
+  if (currentIndex >= options.length) {
+    currentIndex = options.length - 1;
+  }
+
+  timeSignatureSelect.selectedIndex = currentIndex;
+
+  updateTimeSignature(timeSignatureSelect.value);
+
+}
+
 
 
 // BUTTON
 startStopBtn.addEventListener('click', toggleMetronome);
 
-// SPACEBAR
+
+// KEYBOARD SHORTCUTS
 document.addEventListener('keydown', (event) => {
 
   if (event.code === 'Space') {
 
     event.preventDefault();
-
     toggleMetronome();
   }
 
@@ -287,15 +313,30 @@ document.addEventListener('keydown', (event) => {
   if (event.code === 'ArrowLeft') {
 
     event.preventDefault();
-
-    decreaseTempoBtn.click();
+    const amount = event.shiftKey ? 10 : 1;
+    bpm = Math.max(20, bpm - amount);
+    updateMetronome();
   }
+
 
   if (event.code === 'ArrowRight') {
 
     event.preventDefault();
+    const amount = event.shiftKey ? 10 : 1;
+    bpm = Math.min(280, bpm + amount);
+    updateMetronome();
+  }
 
-    increaseTempoBtn.click();
+  if (event.code === 'ArrowUp') {
+
+    event.preventDefault();
+    changeTimeSignatureByKeyboard(-1);
+  }
+
+  if (event.code === 'ArrowDown') {
+
+    event.preventDefault();
+    changeTimeSignatureByKeyboard(1);
   }
 
 });
