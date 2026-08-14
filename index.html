@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <title>Metronome</title>
 </head>
+
 <body>
 
   <div class="container">
@@ -75,9 +77,13 @@
 
       <div class="tempo-settings">
 
-        <div class="adjust-tempo-btn decrease-tempo">
+        <button
+          type="button"
+          class="adjust-tempo-btn decrease-tempo"
+          aria-label="Decrease tempo"
+        >
           −
-        </div>
+        </button>
 
 
         <input
@@ -90,9 +96,13 @@
         >
 
 
-        <div class="adjust-tempo-btn increase-tempo">
+        <button
+          type="button"
+          class="adjust-tempo-btn increase-tempo"
+          aria-label="Increase tempo"
+        >
           +
-        </div>
+        </button>
 
       </div>
 
@@ -104,9 +114,13 @@
 
       <div class="transport">
 
-        <div class="start-stop">
+        <button
+          type="button"
+          class="start-stop"
+          aria-label="Start metronome"
+        >
           ▶
-        </div>
+        </button>
 
       </div>
 
@@ -138,6 +152,20 @@
 
 
       <!-- SILKSCREEN  -->
+
+      <div class="pcb-shortcuts">
+
+        <span class="pcb-shortcuts-title">SHORTCUTS</span>
+
+        <p><kbd>SPACE</kbd><span>START / STOP</span></p>
+        <p><kbd>T</kbd><span>TAP TEMPO</span></p>
+        <p><kbd>← →</kbd><span>BPM + / - 1</span></p>
+        <p><kbd>SHIFT</kbd><span>BPM + / - 10</span></p>
+        <p><kbd>↑ ↓</kbd><span>TIME SIGNATURE</span></p>
+
+      </div>
+
+
 
       <div class="footer">
 
