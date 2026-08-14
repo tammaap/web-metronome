@@ -27,6 +27,6 @@ It was created for loud rehearsals where relying only on sound isn't practical. 
 |---|---|
 | Space | Start / Stop |
 | T | Tap Tempo |
-| ← / → | Decrease / Increase BPM |
+| ← / → | Change BPM by 1 |
 | Shift + ← / Shift + → | Change BPM by 10 |
 | ↑ / ↓ | Change time signature |
