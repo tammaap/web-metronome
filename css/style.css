@@ -12,19 +12,26 @@ button {
 }
 
 
+
 :root {
-  --background: #101211;
-  --panel: #151716;
+  --background: #0b0e0c;
+  --panel: #111512;
 
-  --green: #789f7c;
-  --green-bright: #a2c6a5;
-  --green-dark: #48634d;
+  --green: #86b58d;
+  --green-bright: #b7d9bb;
+  --green-dark: #52735a;
 
-  --text: #89918c;
-  --text-dark: #505a54;
+  --text: #a0aaa3;
+  --text-dark: #68746c;
 
-  --line: #303632;
-  --line-light: #454d48;
+  --line: #29312c;
+  --line-light: #3b463f;
+
+  --control: #0c100e;
+  --control-hover: #151c17;
+
+  --silk: #35483a;
+  --silk-dark: #26352b;
 }
 
 
@@ -288,6 +295,8 @@ body {
   width: 40px;
   height: 40px;
 
+  background: var(--control);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -506,7 +515,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 5px;
 
   background: #111512;
-  color: var(--green);
+  color: var(--green-bright);
 
   font-size: 20px;
   line-height: 1;
@@ -711,7 +720,7 @@ input[type="range"]::-moz-range-thumb {
 
   gap: 4px;
 
-  color: #405245;
+  color: var(--silk);
 
   font-size: 12px;
 
@@ -745,7 +754,7 @@ input[type="range"]::-moz-range-thumb {
 .pcb-mark {
   position: absolute;
 
-  color: #344238;
+  color: var(--silk);
 
   font-size: 7px;
 
@@ -764,7 +773,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 .pcb-note {
-  color: #344238;
+  color: var(--silk);
 
   font-size: 7px;
 
